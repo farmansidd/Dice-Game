@@ -1,23 +1,30 @@
 import { useState } from 'react'
+import styled from 'styled-components'
 import HeroSection from './Components/HeroSection'
 import Gameplay from './Components/Gameplay'
-import './App.css'
 
-
+const AppContainer = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
 
 function App() {
-  const [isGameStart, setisGameStart] = useState(false);
-   const toggleGamePaly = () => {
-    setisGameStart((prev) => !prev);
-   }
+  const [isGameStart, setIsGameStart] = useState(false);
+  
+  const toggleGamePlay = () => {
+    setIsGameStart((prev) => !prev);
+  }
+  
   return (
-    <>
-{
- isGameStart ? <Gameplay toggle={toggleGamePaly} /> : <HeroSection
-  toggle={toggleGamePaly}/>
-}   
- </>
+    <AppContainer>
+      {isGameStart ? 
+        <Gameplay toggle={toggleGamePlay} /> : 
+        <HeroSection toggle={toggleGamePlay} />
+      }
+    </AppContainer>
   )
 }
 
 export default App
+import './App.css'

@@ -9,18 +9,18 @@ function Next({
 
   return (
     <Wrapper>
+      <InstructionText>Select Number</InstructionText>
       <BoxContainer>
-        {arrNumber.map((value, index) => (
+        {arrNumber.map((value) => (
           <Box
             $isSelected={value === selected}
-            key={index}
+            key={value}
             onClick={() => setSelected(value)}
           >
             {value}
           </Box>
         ))}
       </BoxContainer>
-      <InstructionText>Select Number</InstructionText>
     </Wrapper>
   );
 }
@@ -29,44 +29,48 @@ export default Next;
 
 // Styled Components
 const Wrapper = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 20px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  margin-bottom: 40px;
 `;
 
 const BoxContainer = styled.div`
   display: flex;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
+  margin-top: 16px;
 `;
 
 const Box = styled.div`
-  width: 72px;
-  height: 72px;
-  border: 2px solid #000;
+  width: 60px;
+  height: 60px;
+  border: 2px solid ${props => props.$isSelected ? props.theme.colors.primary : props.theme.colors.dark};
   display: grid;
   place-items: center;
   font-size: 24px;
   font-weight: 700;
-  border-radius: 8px;
+  border-radius: ${props => props.theme.borderRadius.medium};
   cursor: pointer;
-  transition: all 0.2s ease;
-  background-color: ${(props) => (props.$isSelected ? '#000000' : '#f4f4f4')};
-  color: ${(props) => (props.$isSelected ? '#ffffff' : '#000000')};
+  transition: all ${props => props.theme.transitions.fast};
+  background-color: ${props => props.$isSelected ? props.theme.colors.primary : 'transparent'};
+  color: ${props => props.$isSelected ? props.theme.colors.white : props.theme.colors.dark};
+  box-shadow: ${props => props.$isSelected ? props.theme.shadows.medium : 'none'};
 
   &:hover {
-    background-color: ${(props) => (props.$isSelected ? '#000000' : '#e0e0e0')};
+    background-color: ${props => props.$isSelected ? props.theme.colors.primary : props.theme.colors.light};
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 `;
 
 const InstructionText = styled.p`
-  margin-top: 20px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
-  color: #333;
-  margin-right: 35%;
+  color: ${props => props.theme.colors.dark};
+  text-align: center;
 `;
